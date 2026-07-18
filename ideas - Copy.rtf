@@ -1,0 +1,731 @@
+{\rtf1\fbidis\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\froman\fprq2 Arial;}{\f1\froman\fprq2\fcharset0 Arial;}{\f2\froman\fprq2\fcharset0 Aptos;}{\f3\fnil\fcharset1 Segoe UI Symbol;}{\f4\fnil\fcharset1 Cambria Math;}{\f5\fnil\fcharset1 Segoe UI Symbol;}{\f6\fnil\fcharset1 Segoe UI Emoji;}{\f7\froman\fprq2\fcharset0 Times New Roman;}{\f8\froman\fprq2\fcharset0 Liberation Serif;}{\f9\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue0;\red255\green0\blue0;\red255\green255\blue0;}
+{\*\generator Riched20 10.0.26100}{\*\mmathPr\mmathFont4\mwrapIndent1440 }\viewkind4\uc1 
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\cf1\kerning1\f0\fs20\lang7177\ldblquote\f1\fs24 Run a honeypot for days/weeks/months and collect real attacker logs from ZMap, Masscan, bots, grabbers.\f0\rdblquote\f2\par
+\kerning0\f1 Canyouseeme.org \kerning1\f2\par
+\kerning0\f1 Alright Riaan \f0\emdash  \f1 here\f0\rquote\f1 s \b exactly what you asked for\b0 :\kerning1\f2\par
+\kerning0\f1 A \b real roadmap\b0 , not random bullet points. A \b step\_by\_step implementation plan\b0 , in the correct order, grouped by phases, with dependencies, and with clear deliverables.\kerning1\f2\par
+\kerning0\f1 This is the roadmap you follow to build a \b professional, portfolio\_ready honeypot\b0 .\kerning1\f2\par
+\b\f3\fs48\u-10179?\u-8576?\f0  \f1 Honeypot Implementation Roadmap (Exact Order, No Fluff)\b0\f2\fs24\par
+\kerning0\b\i\f1\fs27 Designed for a 2\f0\endash\f1 7 day build, depending on how deep you go.\kerning1\b0\i0\f2\fs24\par
+\kerning0\b\f1\fs36 PHASE 1 \f0\emdash  \f1 Foundation (Core Honeypot Skeleton)\kerning1\b0\f2\fs24\par
+\kerning0\b\f3\fs27\u-10180?\u-8273?\f0  \f1 Goal: Get a working multi-port listener that logs connections.\kerning1\b0\f2\fs24\par
+\kerning0\b\f1 1. Project Setup{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\b0 Create project folder\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Create \fs20 honeypot.py\kerning1\f2\fs24\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Create \fs20 requirements.txt\fs24  (if needed)\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Create \fs20 logs/\fs24  directory\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 2. Basic Socket Listener{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\b0 Initialize TCP socket\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Bind to \fs20 0.0.0.0\kerning1\f2\fs24\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Bind to port (start with one: 22)\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Listen for incoming connections\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Accept connection\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Print attacker IP + port\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Close connection \kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 3. Multi-Port Support\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Add list: \fs20 [21, 22, 23]{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\fs24 Loop through ports\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Create listener per port\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 4. Multi-Threading{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Thread per port\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\i\f1 Thread per connection     \highlight2\b\i0 X\highlight0\kerning1\b0\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Ensure daemon threads\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Add timeout to socket\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 5. Basic Logging{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\b0 Create \fs20 honeypot_events.log\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Log: timestamp, attacker IP, target port\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Log: payload preview\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Log: event type\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 Deliverable:\b0  A working honeypot that listens on 3 ports and logs connections.\kerning1\f2\par
+\kerning0\b\f1\fs36 PHASE 2 \f0\emdash  \f1 Structured Logging & Metadata Extraction\kerning1\b0\f2\fs24\par
+\kerning0\b\f3\fs27\u-10180?\u-8273?\f0  \f1 Goal: Make logs SIEM-ready and detection-engineer quality.\kerning1\b0\f2\fs24\par
+\kerning0\b\f1 6. JSON Logging{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\b0 Implement custom JSON formatter\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Log structured fields:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sl240\slmult1\kerning0\f1 timestamp\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 attacker_ip\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 attacker_src_port\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 target_port\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 payload_preview\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 payload_length\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sa280\sl240\slmult1\kerning0\f1 event_uuid\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 7. Error Logging \highlight2 X\highlight0\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Create \fs20 honeypot_errors.log\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Log exceptions\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Log socket failures\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Log thread failures\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 8. Correlation IDs{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\b0 Generate UUID per event\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Add to logs\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 Deliverable:\b0  High-fidelity JSON logs ready for SIEM ingestion.\kerning1\f2\par
+\kerning0\b\f1\fs36 PHASE 3 \f0\emdash  \f1 Fake Service Simulation (Deception Layer)\kerning1\b0\f2\fs24\par
+\kerning0\b\f3\fs27\u-10180?\u-8273?\f0  \f1 Goal: Make the honeypot look real to attackers.\kerning1\b0\f2\fs24\par
+\kerning0\b\f1 9. Add Fake Banners\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 FTP: \fs20 "220 FTP Service Ready\\r\\n"{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\fs24 SSH: \fs20 "SSH-2.0-OpenSSH_8.2\\r\\n"\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Telnet: \fs20 "Welcome to Telnet\\r\\n"\kerning1\f2\fs24\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 10. Fake Prompts   {\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\b0 FTP: \fs20 "Username: "\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Telnet: \fs20 "login: "\kerning1\f2\fs24\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 11. Fake Responses    {\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\b0 FTP: \fs20 "530 Login incorrect\\r\\n"\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Telnet: \fs20 "Invalid command\\r\\n"\kerning1\f2\fs24\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 12. Randomized Banners    {\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw459\pich504\picwgoal260\pichgoal286 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\kerning1\b0\f2\par
+\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Rotate between 2\f0\endash\f1 3 banners per protocol\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Prevent fingerprinting\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 Deliverable:\b0  Your honeypot now looks like real services \f0\emdash  \f1 attackers will interact more.\kerning1\f2\par
+\kerning0\b\f1\fs36 PHASE 4 \f0\emdash  \f1 Alerting System (Detection Layer)\kerning1\b0\f2\fs24\par
+\kerning0\b\f3\fs27\u-10180?\u-8273?\f0  \f1 Goal: Generate alerts when suspicious activity occurs.\kerning1\b0\f2\fs24\par
+\kerning0\b\f1 13. Alert Levels    {\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw476\pich529\picwgoal270\pichgoal300 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Low: single connection\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Medium: repeated hits\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 High: payload detected\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 14. Console Alerts {\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw476\pich529\picwgoal270\pichgoal300 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Highlight attacker IP\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 15. Alert Log File {\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw476\pich529\picwgoal270\pichgoal300 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1\fs20 honeypot_logs.json\b\fs24  {\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw476\pich529\picwgoal270\pichgoal300 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Log severity + metadata\b  {\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw476\pich529\picwgoal270\pichgoal300 
+89504e470d0a1a0a0000000d494844520000001600000018080200000071dc9a1c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa864000000ee49444154384fbd94310e8420104587bd0037b0a237c603d8d8527a074e66
+283c8389dec0cad69a5838f1006c414256568625bbd9dff10d2fc38bc0acb5f05d1e6141c618c3
+18638c5d5a9b13a5d4fbae8c29105108e1b6bdf619886ddbaaaa0adb2cc4baae4288b0cd424cd3
+541445d87e8e7022c2162003111391818889c840c4447c8a204444115a6b44f44b42c40d0211b5
+d6e779cef3ec4b4204c4eec8711c524abf544a5d3e5f134ee1c2396f9a665996a4889b83f8b46d
+3b0c4352048528cb72df77634c4204810080aeebc67124fe08170a51d775dff7f4080904e75c4a
+498b0000f6efe7f7363f403c012376d6c3c220f9d20000000049454e44ae426082
+}\kerning1\b0\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 16. \highlight3 Optional: \highlight0 Discord Webhook      \highlight2 X\highlight0\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Send JSON payload\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Include attacker IP + port\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Include payload preview\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 Deliverable:\b0  Real-time alerts for intrusion attempts.\kerning1\f2\par
+\kerning0\b\f1\fs36 PHASE 5 \f0\emdash  \f1 Detection Logic (Security Intelligence Layer)\kerning1\b0\f2\fs24\par
+\kerning0\b\f3\fs27\u-10180?\u-8273?\f0  \f1 Goal: Identify attacker behavior patterns.\kerning1\b0\f2\fs24\par
+\kerning0\b\f1 17. Port Scan Detection\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Track hits across multiple ports\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 If attacker touches >1 port in <5 seconds \f4\u8594?\f0\lang7177  \f1 alert\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 18. Brute Force Detection\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Repeated payloads\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Repeated connection attempts\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 19. Payload Signature Detection\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Detect:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sl240\slmult1\kerning0\f1 SSH brute-force strings\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 FTP anonymous login attempts\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Telnet credential stuffing\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Nmap fingerprints\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sa280\sl240\slmult1\kerning0\f1 Masscan patterns\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 20. Threat Scoring\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Score per IP:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sl240\slmult1\kerning0\f1 +1 per connection\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 +5 per payload\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 +10 per multi-port scan\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 If score > threshold \f4\u8594?\f0\lang7177  \f1 high alert\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 Deliverable:\b0  Your honeypot now behaves like a real detection system.\kerning1\f2\par
+\kerning0\b\f1\fs36 PHASE 6 \f0\emdash  \f1 Configuration System (Professional Polish)\kerning1\b0\f2\fs24\par
+\kerning0\b\f3\fs27\u-10180?\u-8273?\f0  \f1 Goal: Make the honeypot configurable and reusable.\kerning1\b0\f2\fs24\par
+\kerning0\b\f1 21. Config File\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Create \fs20 config.json\fs24  or \fs20 config.yaml\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Include:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sl240\slmult1\kerning0\f1 ports\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 banners\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 log paths\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 alert settings\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sa280\sl240\slmult1\kerning0\f1 timeouts\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 22. CLI Arguments\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1\fs20 --config\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1\fs20 --ports\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1\fs20 --debug\kerning1\f2\fs24\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 23. Environment Variables\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1\fs20 HONEYPOT_PORTS\kerning1\f2\fs24\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1\fs20 HONEYPOT_LOG_PATH\kerning1\f2\fs24\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 Deliverable:\b0  Your honeypot becomes a real tool, not just a script.\kerning1\f2\par
+\kerning0\b\f1\fs36 PHASE 8 \f0\emdash  \f1 Documentation & Portfolio Polish\kerning1\b0\f2\fs24\par
+\kerning0\b\f3\fs27\u-10180?\u-8273?\f0  \f1 Goal: Make your GitHub page look professional.\kerning1\b0\f2\fs24\par
+\kerning0\b\f1 28. README.md\kerning1\b0\f2\par
+\kerning0\f1 Include:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Overview\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Architecture diagram\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Features\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Example logs\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 MITRE ATT&CK mapping\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 How to run\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Screenshots\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Threat scoring explanation\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Why this project matters for Cloud Detection Engineering\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 29. Diagrams\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Architecture diagram\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Flow diagram\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Sequence diagram\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 30. Attacker Simulation\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Screenshots of:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sl240\slmult1\kerning0\f1 Nmap scan\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Netcat connection\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Telnet login attempt\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li1440\sa280\sl240\slmult1\kerning0\f1 Logs reacting\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\b\f1 Deliverable:\b0  A polished, professional project ready for recruiters.\kerning1\f2\par
+\b\f5\fs48\u11088?\f0  \f1 Final Summary\b0\f2\fs24\par
+\kerning0\f1 This roadmap is \b exactly\b0  what you need:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\b\f1 Clear phases\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\b\f1 Exact order\kerning1\b0\f2\par
+{\pntext\f9\'B7\tab}\kerning0\b\f1 No fluff\kerning1\b0\f2\par
+{\pntext\f9\'B7\tab}\kerning0\b\f1 Real deliverables\kerning1\b0\f2\par
+{\pntext\f9\'B7\tab}\kerning0\b\f1 Cloud Detection Engineer relevance\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\b\f1 Portfolio-ready structure\kerning1\b0\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\f1 If you want, I can now generate:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 A \b GitHub folder structure\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 A \b full README template\kerning1\b0\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 A \b diagram layout\kerning1\b0\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 A \b task checklist for each day\kerning1\b0\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\f1 Just tell me which one you want next.\kerning1\f2\par
+\kerning0\f1\par
+\b\fs27 Rule 1 \f0\emdash  \f1 listen() net een keer\kerning1\b0\f2\fs24\par
+\kerning0\f1 Die port moet net een keer in luister\_mode gesit word.\kerning1\f2\par
+\kerning0\b\f1\fs27 Rule 2 \f0\emdash  \f1 accept() moet in \f0\rquote\f1 n loop wees\kerning1\b0\f2\fs24\par
+\kerning0\f1 Elke attacker moet \f0\rquote\f1 n nuwe \fs20 conn\fs24  socket kry.\kerning1\f2\par
+\kerning0\b\f1\fs27 Rule 3 \f0\emdash  \f1 sluit net die attacker se socket\kerning1\b0\f2\fs24\par
+\kerning0\f1\fs20 conn.close()\fs24  \f4\u8594?\f0\lang7177  \f1 goed \fs20 FTP_SOCKET.close()\fs24  \f4\u8594?\f0\lang7177  \f1 sleg\kerning1\f2\par
+\kerning0\f1 Jy doen al drie nou reg.\kerning1\f2\par
+\kerning0\f1\par
+As jy `n timeout soek : \kerning1\f2\par
+\kerning0\f1 Conn, addr = Socket.accept() \kerning1\f2\par
+\kerning0\f1 Time.sleep(timeout_sekondes)\kerning1\f2\par
+\kerning0\f1 Conn.close()\kerning1\f2\par
+\kerning0\b\f6\fs27\u10004?\u-497?\f0  \f1 1. Die honeypot self (jou code)\kerning1\b0\f2\fs24\par
+\kerning0\f1 Nie perfek nie \f0\emdash  \f1 maar verstaanbaar, modular, en stabiel.\kerning1\f2\par
+\kerning0\b\f6\fs27\u10004?\u-497?\f0  \f1 2. \f0\rquote\f1 n \f0\ldblquote\f1 Captured Attacks\f0\rdblquote  \f1 folder\kerning1\b0\f2\fs24\par
+\kerning0\f1 Met:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Real bot logs\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Real brute-force attempts\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Real IoT exploit strings\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Real scanning waves\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Real payloads\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\f1 Dit is die \i goud\i0 .\kerning1\f2\par
+\kerning0\b\f6\fs27\u10004?\u-497?\f0  \f1 3. \f0\rquote\f1 n \f0\ldblquote\f1 Threat Analysis Report\f0\rdblquote\kerning1\b0\f2\fs24\par
+\kerning0\f1 Kort, maar professioneel:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Watter bot families het jou getref\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Watter payloads het jy gesien\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Watter patterns het jy opgemerk\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Hoe gereeld bots jou tref\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Hoe die internet se \f0\ldblquote\f1 background noise\f0\rdblquote  \f1 lyk\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\f1 Dit wys jy kan \b analiseer\b0 , nie net \f0\ldblquote\f1 run code\f0\rdblquote  \f1 nie.\kerning1\f2\par
+\kerning0\b\f6\fs27\u10004?\u-497?\f0  \f1 4. \f0\rquote\f1 n Diagram van jou honeypot architecture\kerning1\b0\f2\fs24\par
+\kerning0\f1 Recruiters \i love\i0  diagrams.\kerning1\f2\par
+\kerning0\b\f6\fs27\u10004?\u-497?\f0  \f1 5. \f0\rquote\f1 n README wat professioneel lyk\kerning1\b0\f2\fs24\par
+\kerning0\f1 Met:\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sb280\sl240\slmult1\kerning0\f1 Doel van die honeypot\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sl240\slmult1\kerning0\f1 Hoe dit werk\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Hoe jy dit gebou het\kerning1\f2\par
+{\pntext\f9\'B7\tab}\kerning0\f1 Wat jy geleer het\kerning1\f2\par
+
+\pard{\pntext\f9\'B7\tab}{\*\pn\pnlvlblt\pnf9\pnindent0{\pntxtb\'B7}}\nowidctlpar\hyphpar0\fi-360\li720\sa280\sl240\slmult1\kerning0\f1 Wat jy later wil verbeter\kerning1\f2\par
+
+\pard\nowidctlpar\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\f1 Dit wys jy kan \b communicate like an engineer\b0 .\kerning1\f2\par
+\kerning0\b\f5\fs36\u11088?\f0  \f1 Wat is die \i minimum\i0  wat jy moet h\'ea vir recruiters?\kerning1\b0\f2\fs24\par
+\kerning0\b\f1\fs27 1. Die honeypot loop op \f0\rquote\f1 n VM vir 1\f0\endash\f1 2 weke\kerning1\b0\f2\fs24\par
+\kerning0\f1 Sodat jy genoeg logs het.\kerning1\f2\par
+\kerning0\b\f1\fs27 2. \f0\rquote\f1 n Folder met real attacker logs\kerning1\b0\f2\fs24\par
+\kerning0\f1 Dit is die grootste selling point.\kerning1\f2\par
+\kerning0\b\f1\fs27 3. \f0\rquote\f1 n Kort verslag van wat jy gevind het\kerning1\b0\f2\fs24\par
+\kerning0\f1 Selfs net 1 bladsy is genoeg.\kerning1\f2\par
+\kerning0\b\f1\fs27 4. \f0\rquote\f1 n Netjiese README\kerning1\b0\f2\fs24\par
+\kerning0\f1 Met screenshots, diagrams, en verduidelikings.\kerning1\f2\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\kerning0\f1 Daar is net twee maniere hoe TCP dit hanteer, en dit is hoekom jy met daardie vreemde \fs20 b""\fs24  moes stoei:\f7\par
+
+\pard\hyphpar0\widctlpar\fi-360\li720\sl240\slmult1\cf0\f8  1.\tab\cf1\b\f1 Die Netjiese Groet (\fs20 b""\fs24  / FIN):\b0  As die bot besluit om die konneksie skoon toe te maak, stuur sy bedryfstelsel 'n \fs20 FIN\fs24  (Finish) pakket. Jou Python-skrip lees dit as 'n le\'eb string (\fs20 b""\fs24 ). Dit beteken bloot: \i "Ek het die kraan aan my kant toegedraai, daar is niks meer data nie."\i0\f7\par
+
+\pard\hyphpar0\widctlpar\fi-360\li720\sb280\sa280\sl240\slmult1\cf0\f8  2.\tab\cf1\b\f1 Die Onbeskofte Padloop (RST):\b0  As die bot se krag of internet afgaan, of sy skrip crash, stuur hy \i niks\i0  nie. Jou bediener sal vir altyd bly sit en wag op data wat nooit gaan kom nie.\f7\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\f1 Dit is presies hoekom jy daardie \b 5-sekonde timeout\b0\f7\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\b\f1\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1 Cowrie\b0 , \b Dionaea\b0 , \b Honeyd\b0 , en \b OpenCanary\b0\f7\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1\f1\{\f7\par
+\f1   "timestamp": "2026-07-15T13:13:52.421Z",{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1   "event_type": "ssh_bruteforce_attempt",\f7\par
+\f1   "attacker_ip": "185.244.25.91",{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1   "attacker_src_port": 49822,{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1   "target_port": 8022,{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1   "protocol": "ssh",{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1   "banner_sent": "SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5",{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1   \f7\par
+\f1   "connection_metadata": \{\f7\par
+\f1     "connection_id": "c2f4e1b0-9d3a-4f1a-8e5a-9f7c1b2d4a11",{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1     "connection_duration_ms": 312,{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1     "timed_out": false,{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1     "disconnect_reason": "attacker_closed"{\pict{\*\picprop{\sp{\sn wzDescription}{\sv Image}}{\sp{\sn posv}{\sv 1}}
+}\pngblip\picw818\pich377\picwgoal464\pichgoal214 
+89504e470d0a1a0a0000000d49484452000000270000001208020000005776507c000000017352
+474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000ec300000ec3
+01c76fa8640000012b49444154484bbd94318a8430144093edbc868d85952710ef20589a1b4c23
+96a29e41fb58a6564821483c8195965e40ef90290471ff8c6e76e2eeabe47df1f123044b29d1bf
+f305c539799e0fc3803f027c0aabef4a08a194628c5dd7f53c0f8e5f5896a52ccbed1956a43261
+186e0f4288aaaae0f83b4551a4695a14051c4829a5543d61c6d8e3f180f627d6751dc7115af5ff
+ca39771c07da4f51ad9aa60995064a55c6986559d06aa054e59c074100ad066faa8c318cf1300c
+bbb9f778df541963599685611845d1668ef9bb80d52008a669a294765db7f5eaba4e9204bca609
+aceeecebcef30c67da9c568febdeced53d4c08699aa66d5b703ff47d2f84389a0b7cdfb76d1bc8
+d35db7751142af5792ebba866100f92baeaadb450a154208a1388e75c25727fc773c018425d450
+fe5b39bb0000000049454e44ae426082
+}\f7\par
+\f1   \},\f7\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\f1\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1  'payloads_received': ['SSH-2.0-Go-SSH-Client', \f0\'85\f1 , \f0\'85\f1 , \f0\'85\f1 ]\f7\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\f1\par
+\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1   "ssh_attempt": \{\f7\par
+\f1     "username": "root",\f7\par
+\f1     "password_guess": "admin123",\f7\par
+\f1     "authentication_method": "password",\f7\par
+\f1     "attempt_number": 1\f7\par
+\f1   \},\f7\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\f1\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1   "threat": \{\f7\par
+\f1     "category": "credential_stuffing",\f7\par
+\f1     "score": 12,\f7\par
+\f1     "confidence": "high"\f7\par
+\f1   \}\f7\par
+\f1\}\f7\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\f1\par
+\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1 NETWORKING : \f7\par
+\f1 Maak seker jou PORT is op 0.0.0.0 en nie 127.0.0.1 nie\f7\par
+\f1 Maak seker, in Windows Firewall, jou Port 21, 22, 23 is OOP, name dit soos \f0\ldblquote\f1 HoneyPotPy\f0\rdblquote  \f1 of iets \f7\par
+\f1 Test-NetConnection -ComputerName 127.0.0.1 -Port 8021 \f7\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\f1\par
+\par
+
+\pard\hyphpar0\widctlpar\sb280\sa280\sl240\slmult1 DIT IS HOE `N FTP COMMUNICATION MOET LYK \f7\par
+\f1 220 (vsFTPd 3.0.3)\f7\par
+\f1 530 Please login with USER and PASS.\f7\par
+\f1 USER admin\f7\par
+\f1 331 Please specify the password.\f7\par
+\f1 PASS 12345\f7\par
+\f1 530 Login incorrect.\f7\par
+\f1 USER root\f7\par
+\f1 331 Please specify the password.\f7\par
+\f1 PASS toor\f7\par
+\f1 530 Login incorrect.\f7\par
+\f1 USER ftp\f7\par
+\f1 331 Please specify the password.\f7\par
+\f1 PASS ftp\f7\par
+\f1 530 Login incorrect.\f7\par
+\f1 QUIT\f7\par
+\f1 221 Goodbye.\f7\par
+
+\pard\nowidctlpar\hyphpar0\sl276\slmult1\kerning1\f2\par
+\par
+}
+ 
