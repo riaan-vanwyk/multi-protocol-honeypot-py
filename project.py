@@ -72,27 +72,27 @@ def RandomBanner(port, attacker_ip):
     return b""  # fallback
 
 def check_port_scan(ip_address, target_port):
-    huidige_tyd = time.time()
-    is_skandeerder = False
+    currTime = time.time()
+    isScanner = False
 
     with port_lock:
         # 1. Voeg die huidige poort en tydstempel by vir hierdie IP
-        port_hits[ip_address].add((target_port, huidige_tyd))
+        port_hits[ip_address].add((target_port, currTime))
         
         # 2. Maak skoon: Verwyder alle hits wat ouer as 5 sekondes is
-        geldige_hits = {
-            (poort, timestamp) for poort, timestamp in port_hits[ip_address]
-            if huidige_tyd - timestamp <= PORT_SCAN_WINDOW
+        valid_hits = {
+            (port, timestamp) for port, timestamp in port_hits[ip_address]
+            if currTime - timestamp <= PORT_SCAN_WINDOW
         }
-        port_hits[ip_address] = geldige_hits
+        port_hits[ip_address] = valid_hits
         
         # 3. Tel hoeveel UNIEKE poorte in die laaste 5 sekondes getref is
-        unieke_poorte = {poort for poort, timestamp in geldige_hits}
+        unique_ports = {port for port, timestamp in valid_hits}
         
-        if len(unieke_poorte) >= PORT_SCAN_THRESHOLD:
-            is_skandeerder = True
+        if len(unique_ports) >= PORT_SCAN_THRESHOLD:
+            isScanner = True
             
-    return is_skandeerder
+    return isScanner
 
 def EvaluateThreat(PayloadsReceived, Duration):
     # PayloadsReceived is die aantal items (len) in jou payloads_received lys
