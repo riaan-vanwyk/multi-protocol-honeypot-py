@@ -1,17 +1,12 @@
 Project Structure -> 
 
-(Folder) FinalProject_Honeypot 
-   ---> project.py - Where the whole menu system, presets, custom simulation, and orbital simulator code is located 
-   ---> test_project.py - Like week 5's pytest exercises where we need to test the functions inside of the program
+(Folder) FinalProject 
+   ---> project.py - This is where the FTP , SSH, Telnet handling, Fake banner sending, response logging, and the entire Honeypot is located 
+   ---> test_project.py - This file implements unit testing for the file "project.py" to ensure that the project is working correctly.
    ---> requirements.txt - what python packages you need installed 
    ---> README.md - Description of everything
-   ---> start_honeypot.bat - It opens project.py , and keeps the console open afterwards so that you can read any errors that might occur
-   ---> start_idle.bat - Starts the Python Integrated DeveLopment Environment
-   ---> Struct.txt - A copy of this same Project Structure definition
-   ---> pytest.py - If you have pytest installed, you do not need to use this, this is if your pytest is broken like mine.
-   ---> (Folder) logs
-          ------ > honeypot_logs.json -> This is the file where all of the connections to the honeypot is located 
-          
-
-
-DELETE ASB IDEAS.DOCX AS JY KLAAR IS, EN WERK DIT STELSELMATIG IN DIE README.MD IN 
+   ---> start.bat - It opens `python project.py` , and keeps the console open afterwards so that you can read any errors that might occur
+   ---> Struct.txt - A copy of this same Project Structure definition (this file) 
+   ---> pytest.py - This is for testing the program.
+   (Folder) logs ->
+         - honeypot_logs.json -> Contains all of the SIEM-compatible json logs and simple treat evaluation that the honeypot gathers for however long it is active
