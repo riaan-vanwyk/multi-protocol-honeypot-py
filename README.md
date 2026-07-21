@@ -1,7 +1,7 @@
-# Multi-protocol-honeypot-py: A Python FTP, SSH & Telnet Honeypot
+# EchoTrap: A Python FTP, SSH & Telnet Honeypot
 #### Description: 
 ##### 1. Introduction
-Multi-protocol-honeypot-py is, as the name suggests, a small Python system designed to attract malicious activity in the hopes that they will connect to a honeypot, rather tha a real Enterprise system, so that you can take action and mitigate real damage before it even happens. Of course, this is just a basic honeypot, but the "designed to attract malicious activiy" part has still been added. This honeypot opens FTP, SSH, and Telnet ports on any local network / the internet, sending fake and rotating connection and login banners to emulate a real FTP, SSH, and Telnet server. The main goal of this project was for me to understand network interfaces, different network protcols, concurrency better, as well to learn more about Cloud Detection Engineering. The project also does SIEM-like logging via /logs/honeypot_logs.json, although I haven't tested/integrated it into a real SIEM yet. 
+EchoTrap is, as the name suggests, a small Python system designed to attract malicious activity in the hopes that they will connect to a honeypot, rather tha a real Enterprise system, so that you can take action and mitigate real damage before it even happens. Of course, this is just a basic honeypot, but the "designed to attract malicious activiy" part has still been added. This honeypot opens FTP, SSH, and Telnet ports on any local network / the internet, sending fake and rotating connection and login banners to emulate a real FTP, SSH, and Telnet server. The main goal of this project was for me to understand network interfaces, different network protcols, concurrency better, as well to learn more about Cloud Detection Engineering. The project also does SIEM-like logging via /logs/honeypot_logs.json, although I haven't tested/integrated it into a real SIEM yet. 
 
 ##### 2. Features
 
