@@ -24,6 +24,8 @@ Here is a basic diagram of how the storing of logs works: <br>
 ![How the threading system works](https://riaanvanwyk.onrender.com/E.png)<br>
 Each thread constructs a structured log object (LOG_DICT) containing the full session — including banners, payloads, metadata, and threat scoring. The log is then written thread‑safely to honeypot_logs.json using a global file_lock to prevent race conditions.
 
+##### Threat Scoring 
+
 ##### 3. Installation / Requirements 
 
 ##### 4. Usage Instructions 
