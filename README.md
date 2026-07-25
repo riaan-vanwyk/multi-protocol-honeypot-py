@@ -28,8 +28,37 @@ Each thread constructs a structured log object (LOG_DICT) containing the full se
 Here is a basic diagram of how the threat scoring system works: <br>
 ![How the threading system works](https://riaanvanwyk.onrender.com/F.png)<br>
 EchoTrap assesses all connections by means of a straightforward but efficient threat-scoring technique. This system takes into account the number of attacks and the duration of the connection. Depending on these variables, the honeypot classifies the type of intrusion as a port scan, idle probing, etc. After classification, the information gets associated with a numerical index which maps a confidence level (medium, low, high).
-##### 3. Installation / Requirements 
+##### 3. Installation,  Requirements and Execution
+You'll need Python3, and  if on Windows 7+, you can just double-click the start.bat file. If not on Windows, manually launch `python3 project.py` from the Terminal. To run the Python sanity tests, just execute `python pytest.py` in the terminal; it will automatically detect the prescence of `test_*.py` (in this case, `test_project.py`). There are no external dependancies that need to be installed, just make sure that all of the built-in python modules (socket, sys, threading, time, json, datetime, uuid, random, os, collections) are actually working, which they should be if you installed Python normally. 
 
 ##### 4. Usage Instructions 
+When honeypot.py is launched, all three listener threads (FTP, SSH, and Telnet) start automatically.
+Each thread opens its respective port pair:
 
-##### 5. Directory Structure 
+FTP: 21 and 8021
+
+SSH: 22 and 8022
+
+Telnet: 23 and 8023
+
+These ports begin listening immediately for incoming TCP connections.
+
+You can stop the honeypot at any time using:
+
+Ctrl + C in the terminal
+
+Closing the terminal window
+##### 5. Directory Structure
+```
+Project Structure -> 
+
+(Folder) FinalProject 
+   ---> project.py - This is where the FTP , SSH, Telnet handling, Fake banner sending, response logging, and the entire Honeypot is located 
+   ---> test_project.py - This file implements unit testing for the file "project.py" to ensure that the project is working correctly.
+   ---> requirements.txt - what python packages you need installed 
+   ---> README.md - Description of everything
+   ---> start.bat - It opens `python project.py` , and keeps the console open afterwards so that you can read any errors that might occur
+   ---> Struct.txt - A copy of this same Project Structure definition (this file) 
+   ---> pytest.py - This is for testing the program.
+   (Folder) logs ->
+         - honeypot_logs.json -> Contains all of the SIEM-compatible json logs and simple treat evaluation that the honeypot gathers for however long it is active
