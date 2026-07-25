@@ -25,7 +25,9 @@ Here is a basic diagram of how the storing of logs works: <br>
 Each thread constructs a structured log object (LOG_DICT) containing the full session — including banners, payloads, metadata, and threat scoring. The log is then written thread‑safely to honeypot_logs.json using a global file_lock to prevent race conditions.
 
 ##### Threat Scoring 
-
+Here is a basic diagram of how the threat scoring system works: <br>
+![How the threading system works](https://riaanvanwyk.onrender.com/F.png)<br>
+EchoTrap assesses all connections by means of a straightforward but efficient threat-scoring technique. This system takes into account the number of attacks and the duration of the connection. Depending on these variables, the honeypot classifies the type of intrusion as a port scan, idle probing, etc. After classification, the information gets associated with a numerical index which maps a confidence level (medium, low, high).
 ##### 3. Installation / Requirements 
 
 ##### 4. Usage Instructions 
