@@ -11,22 +11,22 @@ I tried to add as many features as reasonably possible within the `logging`, `so
 ##### Threading System
 Here is a basic diagram of how the threading system works: 
 
-![How the threading system works](https://riaanvanwyk.onrender.com/A.png)<br>
+<img src="https://riaanvanwyk.onrender.com/A.png" alt="Threading System Diagram"><br>
 These threads listen simultaneously for incoming connections, handle interactions without blocking each other, and send all data back to a shared logging and threat scoring module. When the application closes, all socket threads properly and safely close as they are daemon threads. 
 
 ##### Socket handling system
 Here is a basic diagram of how the socket handling system works: 
-![How the threading system works](https://riaanvanwyk.onrender.com/B.png)<br>
+<img src="https://riaanvanwyk.onrender.com/B.png" alt="Socket Handling System Diagram"><br>
 Using the Python `sockets` module, I start by making and initialising a new socket object for EACH of the three ports, as each thread calls a function that initialises a new socket object. Each socket object then listens for an incoming connection on its respective port and then connects. Then it handles the connection differently depending on which protocol (port) has been connected to. Then we properly close the connection after 5 seconds of timeout if the attacker does not disconnect (to prevent one rogue port-blocking attacker from hogging the port for hours/days/never disconnecting), or, if the attacker disconnects, I properly close the connection to the attacker using the `conn.close()` function. The daemon threads ensure that each listener socket is properly destroyed when the program terminates, allowing the operating system to automatically release the associated ports.
 
 ##### Storing of logs 
 Here is a basic diagram of how the storing of logs works: <br>
-![How the threading system works](https://riaanvanwyk.onrender.com/E.png)<br>
+<img src="https://riaanvanwyk.onrender.com/E.png" alt="Log Storing System Diagram"><br>
 Each thread constructs a structured log object (LOG_DICT) containing the full session — including banners, payloads, metadata, and threat scoring. The log is then written thread‑safely to honeypot_logs.json using a global file_lock to prevent race conditions.
 
 ##### Threat Scoring 
 Here is a basic diagram of how the threat scoring system works: <br>
-![How the threading system works](https://riaanvanwyk.onrender.com/F.png)<br>
+<img src="https://riaanvanwyk.onrender.com/F.png" alt="Threat Scoring System Diagram"><br>
 EchoTrap assesses all connections by means of a straightforward but efficient threat-scoring technique. This system takes into account the number of attacks and the duration of the connection. Depending on these variables, the honeypot classifies the type of intrusion as a port scan, idle probing, etc. After classification, the information gets associated with a numerical index which maps a confidence level (medium, low, high).
 ##### 3. Installation,  Requirements and Execution
 You'll need Python3, and  if on Windows 7+, you can just double-click the start.bat file. If not on Windows, manually launch `python3 project.py` from the Terminal. To run the Python sanity tests, just execute `python pytest.py` in the terminal; it will automatically detect the prescence of `test_*.py` (in this case, `test_project.py`). There are no external dependancies that need to be installed, just make sure that all of the built-in python modules (socket, sys, threading, time, json, datetime, uuid, random, os, collections) are actually working, which they should be if you installed Python normally. 
