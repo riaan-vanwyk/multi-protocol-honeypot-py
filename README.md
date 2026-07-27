@@ -48,8 +48,34 @@ You can stop the honeypot at any time using:
 Ctrl + C in the terminal
 
 Closing the terminal window
-##### 5. Directory Structure
+##### 5. Example Log output 
+
+Here is an example of one of the lines that you may find in honeypot_logs.json (broken up into multiple lines for readablity):
+
+```json
+{
+   "timestamp":"2026-07-20T17:55:23.774Z",
+   "protocol":"ftp",
+   "attacker_ip":"45.155.205.12",
+   "attacker_port":33912,
+   "target_port":21,
+   "banner_sent":"220 FileZilla Server 0.9.60 beta",
+   "connection_metadata":{"connection_id":"a7b8c9d1-2e33-4f44-9a55-5b6c7d8e9f00",
+   "timed_out":true,
+   "disconnect_reason":"forcibly_closed_after_timeout",
+   "connection_duration_ms":5000},
+   "payloads_received":[],
+   "threat":
+   {
+      "category":"port_scan",
+      "score":2,
+      "confidence":"low"
+   }
+}
 ```
+
+##### 6. Directory Structure
+```text
 Project Structure -> 
 
 (Folder) FinalProject 
