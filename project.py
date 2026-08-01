@@ -143,6 +143,7 @@ def HoneyPotListen(PORT, HOST):
     FTP_SOCKET.listen(50)
     print(f"Listening... Host = {HOST} Port = {PORT}\n\n")
     while True:
+        TIMEOUT = False          # Reset for every new connection
         conn, addr = FTP_SOCKET.accept();ConnTime = time.time()
         LOG_DICT = {}
         print(f"Attacker IP + Port is {addr[0]}:{addr[1]}")
