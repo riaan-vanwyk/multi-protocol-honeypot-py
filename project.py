@@ -58,16 +58,22 @@ SSH_BANNERS = [
 ]
 
 def RandomBanner(port, attacker_ip):
-    random.seed(attacker_ip)  # consistent per attacker
+    # FIX: previously this called random.seed(attacker_ip) then random.choice(),
+    # both of which touch the shared/global random module state. Once connections
+    # are handled concurrently (see the threading fix below), two attackers hitting
+    # the honeypot at the same moment could race on that global state and get each
+    # other's banner. A local random.Random(seed) instance is just as deterministic
+    # per-IP but doesn't touch anything shared, so it's thread-safe.
+    rng = random.Random(attacker_ip)
 
     if port in (23, 8023):
-        return random.choice(TELNET_BANNERS)
+        return rng.choice(TELNET_BANNERS)
 
     if port in (21, 8021):
-        return random.choice(FTP_BANNERS)
+        return rng.choice(FTP_BANNERS)
 
     if port in (22, 8022):
-        return random.choice(SSH_BANNERS)
+        return rng.choice(SSH_BANNERS)
 
     return b""  # fallback
 
@@ -136,165 +142,180 @@ def GetProtocol(port):
     if port == 8023 or port == 23:
         return "telnet"
 
+
+def handle_connection(conn, addr, PORT):
+    """
+    Everything that used to live inline inside the accept() loop, now run in
+    its own thread per connection so one slow/idle attacker can't block every
+    other attacker hitting the same port (see HoneyPotListen for the other
+    half of this fix).
+    """
+    TIMEOUT = False
+    ConnTime = time.time()
+    LOG_DICT = {}
+    print(f"Attacker IP + Port is {addr[0]}:{addr[1]}")
+
+    client_ip = addr[0]
+    if check_port_scan(client_ip, PORT):
+        print(f"[ALERT] PORT SCAN DETECTED VAN {client_ip}! Getref poorte binne {PORT_SCAN_WINDOW}s.")
+
+    try:
+        banner_used = RandomBanner(PORT, addr[0])
+        if banner_used:
+            conn.send(banner_used)
+    except Exception as e:
+        print(f"Kon nie banner stuur nie (Bot het dalk klaar gedisconnect): {e}")
+        conn.close()
+        return
+
+    # 1. Stel die 5-sekonde timeout op die konneksie VOOR die loop begin
+    conn.settimeout(5.0)
+    payloads_received = []
+    while True:
+        try:
+            # As die attacker vir 5 sekondes niks stuur nie, spring hy dadelik
+            # uit hierdie lyn uit na die 'except socket.timeout' blok toe.
+            try:
+                FTP_DATA = conn.recv(5000)
+            except ConnectionResetError:
+                print("Client closed the connection (RST).")
+                break
+            except ConnectionAbortedError:
+                print("Client aborted the connection (WinError 10053).")
+                break
+
+            if FTP_DATA == b"":
+                # Bot het self gedisconnect
+                TIMEOUT = False
+                conn.close();print("Connection closed...")
+                break
+
+            # FIX: this IAC check used to run *after* the payload was already
+            # appended to payloads_received below, so raw Telnet negotiation
+            # bytes (which real telnet clients/bots send constantly) still
+            # got logged and counted toward the threat score -- meaning
+            # ordinary negotiation noise could get mislabeled as
+            # credential_stuffing. Checking it here, before we ever log the
+            # payload, makes it actually get ignored as the comment always
+            # said it should.
+            if GetProtocol(PORT) == "telnet" and FTP_DATA.startswith(b"\xff"):
+                continue
+
+            teks_payload = FTP_DATA.decode('utf-8', errors='ignore').strip()
+            payloads_received.append(teks_payload)
+            ### FTP code ### 
+            if GetProtocol(PORT) == "ftp":
+                if teks_payload.upper().startswith("USER"):
+                    conn.send(b"331 Please specify the password.\r\n")
+                    continue
+
+                if teks_payload.upper().startswith("PASS"):
+                    conn.send(b"530 Login incorrect.\r\n")
+                    continue
+
+                if teks_payload.upper().startswith("QUIT"):
+                    conn.send(b"221 Goodbye.\r\n")
+                    conn.close()
+                    break
+            ### SSH Code ###
+            if GetProtocol(PORT) == "ssh":
+                if teks_payload.upper().startswith("SSH"):
+                    conn.send(b"Protocol mismatch.\r\n")
+                    conn.close()
+                    break
+
+            ### Telnet
+
+            if teks_payload.strip() == "" and GetProtocol(PORT) == "telnet":
+                # ENTER gedruk
+                new_ls = [item for item in payloads_received if item != '']
+                if len(payloads_received) - len(new_ls) == 4:
+                    conn.send(b"Connection closed. Too many incorrect attempts.")
+                    conn.close()
+                    break
+                if len(payloads_received) - len(new_ls) >= 2:
+                    conn.send(b"Incorrect password, please try again: ")
+                else:
+                    conn.send(b"Enter password: ")
+
+        except socket.timeout:
+            # 2. HIERDIE is jou "if conn.timeout()"!
+            # Die 5 sekondes is verby sonder dat ons data gekry het.
+            print("5 Sekondes verby sonder data. Skop die attacker...")
+            TIMEOUT = True
+            conn.close()
+            break
+
+    EndTime = time.time()
+    # logging ( HOU DIE KODE BUITE DIE LOOP )
+    now_utc = datetime.now(timezone.utc)
+    iso_timestamp = now_utc.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
+
+    LOG_DICT["timestamp"] = iso_timestamp
+    LOG_DICT["protocol"] = GetProtocol(PORT)
+    LOG_DICT["attacker_ip"] = addr[0]
+    LOG_DICT["attacker_port"] = addr[1]
+    LOG_DICT["target_port"] = PORT
+    LOG_DICT["banner_sent"] = banner_used.decode('utf-8', errors='ignore').strip()
+
+    LOG_DICT["connection_metadata"] = dict(
+        connection_id=str(uuid.uuid4()),
+        timed_out=TIMEOUT,
+        disconnect_reason="forcibly_closed_after_timeout" if TIMEOUT else "attacker_closed",
+        connection_duration_ms=int((EndTime - ConnTime) * 1000),
+    )
+    if not GetProtocol(PORT) == "telnet":
+        LOG_DICT["payloads_received"] = payloads_received
+    else:
+        payloads_received2 = [""]  # begin met een string
+        i = 0
+        for item in payloads_received:
+            if item != "":
+                payloads_received2[i] += item
+            else:
+                payloads_received2.append("")  # maak 'n nuwe segment
+                i += 1
+        LOG_DICT["payloads_received"] = [x for x in payloads_received2 if x != ""]
+
+    category, score, confidence = EvaluateThreat(len(payloads_received), int((EndTime - ConnTime) * 1000))
+    LOG_DICT["threat"] = dict(category=category, score=score, confidence=confidence)
+    for item in LOG_DICT["payloads_received"]:
+        print(f"Received: {item}")
+    print(LOG_DICT)
+
+    os.makedirs("./logs", exist_ok=True)
+    with file_lock:
+        with open("./logs/honeypot_logs.json", "a") as log_file:
+            clean_text = json.dumps(LOG_DICT)
+            log_file.write(clean_text + "\n")
+
+
 def HoneyPotListen(PORT, HOST):
-    TIMEOUT = False;
     FTP_SOCKET = socket.socket(socket.AF_INET, type=socket.SOCK_STREAM)
+    # FIX: without SO_REUSEADDR, restarting the honeypot shortly after stopping
+    # it (e.g. after a crash, or during dev) fails with "Address already in
+    # use" until the OS clears the old socket's TIME_WAIT state, which can
+    # take a minute or more.
+    FTP_SOCKET.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     FTP_SOCKET.bind((HOST, PORT))
     FTP_SOCKET.listen(50)
     print(f"Listening... Host = {HOST} Port = {PORT}\n\n")
     while True:
-        TIMEOUT = False          # Reset for every new connection
-        conn, addr = FTP_SOCKET.accept();ConnTime = time.time()
-        LOG_DICT = {}
-        print(f"Attacker IP + Port is {addr[0]}:{addr[1]}")
-        
-        client_ip = addr[0]
-        if check_port_scan(client_ip, PORT):
-            print(f"[ALERT] PORT SCAN DETECTED VAN {client_ip}! Getref poorte binne {PORT_SCAN_WINDOW}s.")
-        
-        try:
-            banner_used = RandomBanner(PORT, addr[0])
-            if banner_used:
-                conn.send(banner_used)
-        except Exception as e:
-            print(f"Kon nie banner stuur nie (Bot het dalk klaar gedisconnect): {e}")
-            conn.close()
-            continue
-        # 1. Stel die 5-sekonde timeout op die konneksie VOOR die loop begin
-        conn.settimeout(5.0)
-        payloads_received = []
-        while True:
-            try:
-                # As die attacker vir 5 sekondes niks stuur nie, spring hy dadelik 
-                # uit hierdie lyn uit na die 'except socket.timeout' blok toe.
-                try:
-                    FTP_DATA = conn.recv(5000)
-                except ConnectionResetError:
-                    print("Client closed the connection (RST).")
-                    break
-                except ConnectionAbortedError:
-                    print("Client aborted the connection (WinError 10053).")
-                    break
-
-
-                if FTP_DATA == b"":
-                    # Bot het self gedisconnect
-                    TIMEOUT = False;
-                    conn.close();print("Connection closed...")
-                    break
-
-                teks_payload = FTP_DATA.decode('utf-8', errors='ignore').strip()
-                payloads_received.append(teks_payload)
-                ### FTP code ### 
-                if GetProtocol(PORT) == "ftp":
-                    if teks_payload.upper().startswith("USER"):
-                        conn.send(b"331 Please specify the password.\r\n")
-                        continue
-
-                    if teks_payload.upper().startswith("PASS"):
-                        conn.send(b"530 Login incorrect.\r\n")
-                        continue
-
-                    if teks_payload.upper().startswith("QUIT"):
-                        conn.send(b"221 Goodbye.\r\n")
-                        conn.close()
-                        break
-                ### SSH Code ###
-                if GetProtocol(PORT) == "ssh":
-                    if teks_payload.upper().startswith("SSH"):
-                        conn.send(b"Protocol mismatch.\r\n")
-                        conn.close()
-                        break;
-                # print(f"Received: {teks_payload}")
-
-                ### Telnet
-
-                if teks_payload.strip() == "" and GetProtocol(PORT) == "telnet":
-                    # ENTER gedruk
-                    new_ls = [item for item in payloads_received if item != ''];
-                    if len(payloads_received) - len(new_ls) == 4:
-                        conn.send(b"Connection closed. Too many incorrect attempts.")
-                        conn.close();
-                        break;
-                    if len(payloads_received) - len(new_ls) >= 2:
-                        conn.send(b"Incorrect password, please try again: ")
-                    else:
-                        conn.send(b"Enter password: ")
-                    # if ('' not in payloads_received):
-                        
-
-                
-
-                if GetProtocol(PORT) == "telnet":
-                    # Ignore Telnet negotiation bytes (IAC)
-                    if FTP_DATA.startswith(b"\xff"):
-                        continue
-
-
-                        
-
-
-
-
-            except socket.timeout:
-                # 2. HIERDIE is jou "if conn.timeout()"! 
-                # Die 5 sekondes is verby sonder dat ons data gekry het.
-                print("5 Sekondes verby sonder data. Skop die attacker...")
-                TIMEOUT = True;
-                conn.close()
-                break
-        EndTime = time.time()
-        # logging ( HOU DIE KODE BUITE DIE LOOP ) 
-        # Get current UTC time
-        now_utc = datetime.now(timezone.utc)
-
-        # Format in ISO 8601 with milliseconds
-        iso_timestamp = now_utc.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
-
-        LOG_DICT["timestamp"] = iso_timestamp;
-        LOG_DICT["protocol"] = GetProtocol(PORT)
-        LOG_DICT["attacker_ip"] = addr[0];
-        LOG_DICT["attacker_port"] = addr[1];
-        LOG_DICT["target_port"] = PORT;
-        LOG_DICT["banner_sent"] = banner_used.decode('utf-8', errors='ignore').strip()
-        
-        LOG_DICT["connection_metadata"] = dict(
-            connection_id=str(uuid.uuid4()),
-            timed_out = TIMEOUT,
-            disconnect_reason = "forcibly_closed_after_timeout" if TIMEOUT else "attacker_closed",
-            connection_duration_ms= int((EndTime - ConnTime) * 1000),
-            )
-        if not GetProtocol(PORT) == "telnet":
-            LOG_DICT["payloads_received"] = payloads_received
-        else:
-            payloads_received2 = [""]  # begin met een string
-            i = 0
-
-            for item in payloads_received:
-                if item != "":
-                    payloads_received2[i] += item
-                else:
-                    payloads_received2.append("")  # maak ’n nuwe segment
-                    i += 1
-            # Filtreer bloot enige leë elemente uit payloads_received2 uit voor jy dit stoor
-            LOG_DICT["payloads_received"] = [x for x in payloads_received2 if x != ""]
-
-
-        category, score, confidence = EvaluateThreat(len(payloads_received), int((EndTime - ConnTime) * 1000))
-        LOG_DICT["threat"] = dict(category=category, score=score, confidence=confidence)
-        for item in LOG_DICT["payloads_received"]: print(f"Received: {item}")
-        print(LOG_DICT)
-        # Jy skakel dit eers om na 'n string, en dan gebruik jy .write()
-        os.makedirs("./logs", exist_ok=True)
-        with file_lock:
-            with open("./logs/honeypot_logs.json", "a") as log_file:
-                clean_text = json.dumps(LOG_DICT)
-                log_file.write(clean_text + "\n")
-            payloads_received = []
+        conn, addr = FTP_SOCKET.accept()
+        # FIX: this used to process the connection inline, right here, in the
+        # same thread that's calling accept(). That means only one connection
+        # per port could ever be "in progress" at a time -- an idle attacker
+        # (or just a slow one) blocked every other attacker hitting that same
+        # port for up to the full 5s timeout, since accept() couldn't be
+        # called again until the current connection finished. Handing each
+        # connection off to its own thread lets the accept() loop go straight
+        # back to listening, so simultaneous connections are handled in
+        # parallel instead of queueing up behind each other.
+        conn_thread = threading.Thread(target=handle_connection, args=(conn, addr, PORT), daemon=True)
+        conn_thread.start()
 
 
 def main():
-    global HOST;
     print("[*] Starting all 3 threads concurrently...")
 
     # Skep die 3 threads en koppel elke funksie aan een
@@ -320,6 +341,3 @@ def main():
         print("\n[*] Program gestop deur gebruiker. Totsiens!")
 
 main()
-
-        
-    
