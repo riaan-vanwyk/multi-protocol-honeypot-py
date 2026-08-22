@@ -1,4 +1,6 @@
 # EchoTrap: A Python FTP, SSH & Telnet Honeypot
+Video Demo: [🎥 View Video Demo](https://riaanvanwyk.onrender.com/GravityPresentationVid.html)<br><br>
+Presentation: [📄 View Full Presentation](https://riaanvanwyk.onrender.com/GravityPresentation.html)<br><br>
 Personal Website: [🌐 Open My Website](https://linktr.ee/riaanvanwyk)<br><br>
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
