@@ -1,5 +1,5 @@
 # EchoTrap: A Python FTP, SSH & Telnet Honeypot
-Personal Website: [🌐 Open My Website](https://riaanvanwyk.onrender.com/index.html)<br><br>
+Personal Website: [🌐 Open My Website](https://linktr.ee/riaanvanwyk)<br><br>
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
