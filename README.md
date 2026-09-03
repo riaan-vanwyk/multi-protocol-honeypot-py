@@ -1,11 +1,14 @@
 # EchoTrap: A Python FTP, SSH & Telnet Honeypot
-Video Demo: [🎥 View Video Demo](https://riaanvanwyk.onrender.com/GravityPresentationVid.html)<br><br>
-Presentation: [📄 View Full Presentation](https://riaanvanwyk.onrender.com/EchoTrapPresentation.html)<br><br>
-Personal Website: [🌐 Open My Website](https://riaanvanwyk.onrender.com)<br><br>
+Video Demo: [🎥 View Video Demo](https://riaanvw.vercel.app/EchoTrap_PresentationVideo.html)
+
+Presentation: [📄 View Full Presentation](https://riaanvw.vercel.app/EchoTrap_Presentation.html)
+<br><br>
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-#### Description: 
+
+#### Description:
+
 ##### 1. Introduction
 EchoTrap is, as the name suggests, a small Python system designed to attract malicious activity in the hopes that they will connect to a honeypot, rather than a real Enterprise system, so that you can take action and mitigate real damage before it even happens. Of course, this is just a basic honeypot, but the "designed to attract malicious activity" part has still been added. This honeypot opens FTP, SSH, and Telnet ports on any local network / the internet, sending fake and rotating connection and login banners to emulate a real FTP, SSH, and Telnet server. The main goal of this project was for me to understand network interfaces, different network protocols, concurrency better, as well to learn more about Cloud Detection Engineering. The project also does SIEM-like logging via /logs/honeypot_logs.json, although I haven't tested/integrated it into a real SIEM yet. 
 
